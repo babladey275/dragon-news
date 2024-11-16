@@ -1,4 +1,5 @@
 import { AiFillStar, AiOutlineEye } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const NewsCard = (props = {}) => {
   const { news } = props || {};
@@ -20,7 +21,12 @@ const NewsCard = (props = {}) => {
       <p className="text-sm text-gray-700 mt-4">
         {news.details.slice(0, 150)}...
       </p>
-      <button className="text-blue-600 font-semibold mt-2">Read More</button>
+      <Link
+        to={`/news/${news._id}`}
+        className="text-blue-600 font-semibold mt-2"
+      >
+        Read More
+      </Link>
       <div className="flex justify-between items-center mt-4">
         <div className="flex items-center space-x-1 text-yellow-500">
           {[...Array(5)].map((_, i) => (
