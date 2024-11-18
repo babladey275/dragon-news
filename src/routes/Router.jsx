@@ -51,8 +51,20 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "career",
+    element: <h1>career</h1>,
+  },
+  {
+    path: "about",
+    element: <h1>about</h1>,
+  },
+  {
     path: "*",
-    element: <h1>Error</h1>,
+    element: (
+      <h1 className="text-center text-red-600 text-4xl font-bold mt-20">
+        Oops! Page not found.
+      </h1>
+    ),
   },
 ]);
 

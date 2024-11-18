@@ -14,7 +14,7 @@ const Navbar = () => {
       </div>
       <div className="flex-1 space-x-5">
         <Link to={"/"}>Home</Link>
-        <Link to={"career"}>Career</Link>
+        <Link to={"/career"}>Career</Link>
         <Link to={"/about"}>About</Link>
       </div>
       <div className="flex gap-2 items-center">

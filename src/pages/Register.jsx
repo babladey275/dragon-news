@@ -13,29 +13,33 @@ const Register = () => {
     const name = form.get("name");
 
     if (name.length < 5) {
-      setError({ ...error, name: "must be more than 5 character long" });
+      setError({ ...error, name: "Must be more than 5 character long" });
       return;
     }
 
     const photo = form.get("photo");
     const email = form.get("email");
     const password = form.get("password");
-    console.log({ name, photo, email, password });
+    const terms = form.get("terms");
+    // console.log({ name, photo, email, password });
+
+    if (!terms) {
+      setError({ ...error, terms: "Please accept our terms and condition" });
+      return;
+    }
 
     createNewUser(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
         updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
-          navigate("/").catch((err) => {
-            console.log(err);
+          navigate("/").catch((error) => {
+            setError({ register: error.message });
           });
         });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        setError({ register: error.message });
       });
   };
 
@@ -99,9 +103,20 @@ const Register = () => {
               required
             />
           </div>
+          <div>
+            {error?.register && (
+              <label className="label text-xs text-red-600">
+                {error.register}
+              </label>
+            )}
+          </div>
           <div className="form-control">
             <label className="label cursor-pointer justify-start">
-              <input type="checkbox" className="checkbox rounded-md" />
+              <input
+                type="checkbox"
+                name="terms"
+                className="checkbox rounded-md"
+              />
               <span className="label-text ml-2">
                 Accept{" "}
                 <span className="text-gray-600 font-semibold">
@@ -110,6 +125,9 @@ const Register = () => {
               </span>
             </label>
           </div>
+          {error?.terms && (
+            <label className="label text-xs text-red-600">{error.terms}</label>
+          )}
           <div className="form-control mt-6">
             <button className="btn btn-neutral rounded-sm">Register</button>
           </div>

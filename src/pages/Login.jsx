@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Login = () => {
-  const { userLogin } = useContext(AuthContext);
+  const { userLogin, setUser } = useContext(AuthContext);
   const [error, setError] = useState({});
 
   const location = useLocation();
@@ -14,11 +14,13 @@ const Login = () => {
     const form = new FormData(e.target);
     const email = form.get("email");
     const password = form.get("password");
-    console.log({ email, password });
+    // console.log({ email, password });
 
     userLogin(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
+        const user = result.user;
+        setUser(user);
         navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
